@@ -17,6 +17,26 @@ const handleHomepage = (req, res) => {
   res.status(200).render('pages/homepage', { users: users });
 }
 
+const handleProfilePage = (req, res) => {
+  let { _id } = req.params;
+
+  let userData = users.filter(user => user._id === _id)[0];
+
+  let usersFriends = [];
+
+  users.forEach(users => {
+    userData.friends.forEach(friendsId => {
+      if(users._id === friendsId) usersFriends.push(users);
+    });
+  });
+
+
+  res.status(200).render('pages/profile', { 
+    user: userData, 
+    userFriends: usersFriends 
+  });
+}
+
 // -----------------------------------------------------
 // server endpoints
 express()
@@ -27,6 +47,8 @@ express()
 
   // endpoints
   .get('/', handleHomepage)
+
+  .get('/users/:_id', handleProfilePage)
 
   // a catchall endpoint that will send the 404 message.
   .get('*', handleFourOhFour)
