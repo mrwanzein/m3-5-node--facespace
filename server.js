@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 
 const { users } = require('./data/users');
+const e = require('express');
 
 let currentUser = {};
 
@@ -15,6 +16,28 @@ const handleFourOhFour = (req, res) => {
 
 const handleHomepage = (req, res) => {
   res.status(200).render('pages/homepage', { users: users });
+}
+
+const handleSignin = (req, res) => {
+  res.status(200).render('pages/signin');
+}
+
+const handleName = (req, res) => {
+  let { firstName } = req.body;
+  let id;
+  
+  users.forEach(user => {
+    if(user.name === firstName) {
+      return id = user._id;
+    }
+  });
+
+  if(id) {
+    res.status(200).redirect(`/users/${id}`);
+  } else {
+    res.status(404).redirect('/signin');
+  }
+
 }
 
 const handleProfilePage = (req, res) => {
@@ -49,6 +72,10 @@ express()
   .get('/', handleHomepage)
 
   .get('/users/:_id', handleProfilePage)
+
+  .get('/signin', handleSignin)
+
+  .post('/getname', handleName)
 
   // a catchall endpoint that will send the 404 message.
   .get('*', handleFourOhFour)
