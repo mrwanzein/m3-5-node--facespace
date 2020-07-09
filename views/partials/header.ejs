@@ -2,10 +2,11 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facespace</title>
+  <title><%- Object.keys(currentUser).length !== 0 ? `Howdy, ${currentUser.name}` : 'Facespace' %></title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <header class="header">
       <h1 class='site-title'>Facespace</h1>
+      <button class="signin-button" onclick="location.href='http\:\/\/localhost:8000/signin'"><%- Object.keys(currentUser).length !== 0  ? `Howdy, ${currentUser.name}` : 'Sign in' %></button>
   </header>

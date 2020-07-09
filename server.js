@@ -4,9 +4,9 @@ const express = require('express');
 const morgan = require('morgan');
 
 const { users } = require('./data/users');
-const e = require('express');
 
 let currentUser = {};
+let signed = false;
 
 
 // declare the 404 function
@@ -15,11 +15,15 @@ const handleFourOhFour = (req, res) => {
 };
 
 const handleHomepage = (req, res) => {
-  res.status(200).render('pages/homepage', { users: users });
+  res.status(200).render('pages/homepage', { users: users, currentUser: currentUser });
 }
 
 const handleSignin = (req, res) => {
-  res.status(200).render('pages/signin');
+  if(!signed) {
+    res.status(200).render('pages/signin', { currentUser: currentUser });
+  } else {
+    res.status(200).redirect('/');
+  }
 }
 
 const handleName = (req, res) => {
@@ -28,12 +32,15 @@ const handleName = (req, res) => {
   
   users.forEach(user => {
     if(user.name === firstName) {
+      currentUser = user;
       return id = user._id;
     }
   });
 
   if(id) {
     res.status(200).redirect(`/users/${id}`);
+    signed = true;
+
   } else {
     res.status(404).redirect('/signin');
   }
@@ -56,7 +63,8 @@ const handleProfilePage = (req, res) => {
 
   res.status(200).render('pages/profile', { 
     user: userData, 
-    userFriends: usersFriends 
+    userFriends: usersFriends,
+    currentUser: currentUser
   });
 }
 

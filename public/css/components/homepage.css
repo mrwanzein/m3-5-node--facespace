@@ -19,6 +19,8 @@
 }
 .homepage__all--user img:hover {
   border: 5px solid var(--primary-color);
+  transform: rotate(10deg);
+  cursor: pointer;
 }
 .ribbon {
   background: var(--primary-color);
