@@ -4,7 +4,7 @@
     <ul class="homepage__all">
         <% users.forEach(user => { %>
         <li class="homepage__all--user">
-            <img src="<%= user.avatarUrl %>" onclick="location.href='http\:\/\/localhost:8000/users/<%- user._id %>'"/>
+            <img src="<%= user.avatarUrl %>" onclick="location.href='/users/<%- user._id %>'"/>
             <% if(currentUser.friends !== undefined) {  %>
                 <% if(currentUser.friends.includes(user._id)) { %>
                 <div class="ribbon"><span>friend</span></div>

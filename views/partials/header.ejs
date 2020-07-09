@@ -8,5 +8,5 @@
 <body>
   <header class="header">
       <h1 class='site-title'>Facespace</h1>
-      <button class="signin-button" onclick="location.href='http\:\/\/localhost:8000/signin'"><%- Object.keys(currentUser).length !== 0  ? `Howdy, ${currentUser.name}` : 'Sign in' %></button>
+      <button class="signin-button" onclick="location.href='/signin'"><%- Object.keys(currentUser).length !== 0  ? `Howdy, ${currentUser.name}` : 'Sign in' %></button>
   </header>
